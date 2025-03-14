@@ -1,0 +1,162 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyOszXBLu8rso1KeWZGlteAw",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/Divya-kola1231/Divya-kola1231/blob/main/Rock_Paper_Scissor\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 1,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "SWoEV4Oc9INO",
+        "outputId": "9ade0e92-ac91-4a03-c631-77da2088c314"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "\n",
+            "🎮 Welcome to Rock-Paper-Scissors! First to 3 wins! 🎮\n",
+            "\n",
+            "Enter your choice (Rock, Paper, Scissors) or 'exit' to quit: rock\n",
+            "\n",
+            "You chose: Rock 🪨\n",
+            "Computer chose: Rock 🪨\n",
+            "It's a tie! 🤝\n",
+            "Score -> You: 0 🆚 Computer: 0\n",
+            "\n",
+            "Enter your choice (Rock, Paper, Scissors) or 'exit' to quit: paper\n",
+            "\n",
+            "You chose: Paper 📄\n",
+            "Computer chose: Rock 🪨\n",
+            "You win! 🎉\n",
+            "Score -> You: 1 🆚 Computer: 0\n",
+            "\n",
+            "Enter your choice (Rock, Paper, Scissors) or 'exit' to quit: scissor\n",
+            "Invalid choice. Please enter Rock, Paper, or Scissors.\n",
+            "Enter your choice (Rock, Paper, Scissors) or 'exit' to quit: Scissors\n",
+            "\n",
+            "You chose: Scissors ✂️\n",
+            "Computer chose: Rock 🪨\n",
+            "Computer wins! 😔\n",
+            "Score -> You: 1 🆚 Computer: 1\n",
+            "\n",
+            "Enter your choice (Rock, Paper, Scissors) or 'exit' to quit: rock\n",
+            "\n",
+            "You chose: Rock 🪨\n",
+            "Computer chose: Paper 📄\n",
+            "Computer wins! 😔\n",
+            "Score -> You: 1 🆚 Computer: 2\n",
+            "\n",
+            "Enter your choice (Rock, Paper, Scissors) or 'exit' to quit: quit\n",
+            "Invalid choice. Please enter Rock, Paper, or Scissors.\n",
+            "Enter your choice (Rock, Paper, Scissors) or 'exit' to quit: exit\n",
+            "Thanks for playing! 🎮\n",
+            "Game Over! 🎮\n"
+          ]
+        }
+      ],
+      "source": [
+        "import random\n",
+        "\n",
+        "# Define choices with icons\n",
+        "choices = {\n",
+        "    0: \"Rock 🪨\",\n",
+        "    1: \"Paper 📄\",\n",
+        "    2: \"Scissors ✂️\"\n",
+        "}\n",
+        "\n",
+        "# Mapping for user input\n",
+        "input_map = {\n",
+        "    \"rock\": 0, \"r\": 0, \"0\": 0,\n",
+        "    \"paper\": 1, \"p\": 1, \"1\": 1,\n",
+        "    \"scissors\": 2, \"s\": 2, \"2\": 2\n",
+        "}\n",
+        "\n",
+        "# Function to determine the winner\n",
+        "def determine_winner(user, computer):\n",
+        "    if user == computer:\n",
+        "        return \"It's a tie! 🤝\"\n",
+        "    elif (user == 0 and computer == 2) or (user == 1 and computer == 0) or (user == 2 and computer == 1):\n",
+        "        return \"You win! 🎉\"\n",
+        "    else:\n",
+        "        return \"Computer wins! 😔\"\n",
+        "\n",
+        "# Game loop with scoring\n",
+        "user_score = 0\n",
+        "computer_score = 0\n",
+        "rounds_to_win = 3\n",
+        "\n",
+        "print(\"\\n🎮 Welcome to Rock-Paper-Scissors! First to 3 wins! 🎮\\n\")\n",
+        "\n",
+        "while user_score < rounds_to_win and computer_score < rounds_to_win:\n",
+        "    try:\n",
+        "        # Get user input\n",
+        "        user_input = input(\"Enter your choice (Rock, Paper, Scissors) or 'exit' to quit: \").strip().lower()\n",
+        "        if user_input == \"exit\":\n",
+        "            print(\"Thanks for playing! 🎮\")\n",
+        "            break\n",
+        "        if user_input not in input_map:\n",
+        "            print(\"Invalid choice. Please enter Rock, Paper, or Scissors.\")\n",
+        "            continue\n",
+        "\n",
+        "        user_choice = input_map[user_input]\n",
+        "        computer_choice = random.randint(0, 2)\n",
+        "\n",
+        "        # Display choices\n",
+        "        print(f\"\\nYou chose: {choices[user_choice]}\")\n",
+        "        print(f\"Computer chose: {choices[computer_choice]}\")\n",
+        "\n",
+        "        # Determine and display the round result\n",
+        "        result = determine_winner(user_choice, computer_choice)\n",
+        "        print(result)\n",
+        "\n",
+        "        # Update scores\n",
+        "        if \"You win\" in result:\n",
+        "            user_score += 1\n",
+        "        elif \"Computer wins\" in result:\n",
+        "            computer_score += 1\n",
+        "\n",
+        "        # Display score\n",
+        "        print(f\"Score -> You: {user_score} 🆚 Computer: {computer_score}\\n\")\n",
+        "\n",
+        "    except Exception as e:\n",
+        "        print(\"An error occurred:\", e)\n",
+        "\n",
+        "# Final game result\n",
+        "if user_score == rounds_to_win:\n",
+        "    print(\"🏆 Congratulations! You are the champion! 🏆\")\n",
+        "elif computer_score == rounds_to_win:\n",
+        "    print(\"💻 The computer wins this time! Better luck next round!\")\n",
+        "\n",
+        "print(\"Game Over! 🎮\")\n"
+      ]
+    }
+  ]
+}
